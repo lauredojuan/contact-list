@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import ContactCard from "../component/ContactCard.js";
-import { Modal } from "../component/Modal";
+// import { Modal } from "../component/Modal";
 
 export const Contacts = () => {
-	const [state, setState] = useState({
-		showModal: false
-	});
+	// const [state, setState] = useState({
+	// 	showModal: false
+	// });
 
 	return (
 		<div className="container">
@@ -32,6 +32,7 @@ export const Contacts = () => {
 										email={value.email}
 										key={indexOfContact}
 										index={indexOfContact}
+										id={value.id}
 									/>
 								))}
 							</ul>
@@ -39,7 +40,7 @@ export const Contacts = () => {
 					</div>
 				)}
 			</Context.Consumer>
-			<Modal show={state.showModal} onClose={() => setState({ showModal: false })} />
+			{/* <Modal show={state.showModal} onClose={() => setState({ showModal: false })} /> */}
 		</div>
 	);
 };

@@ -11,7 +11,7 @@ const getState = ({ getStore, setStore }) => {
 						"Content-Type": "application/json"
 					},
 					body: JSON.stringify({
-						agenda_slug: "moldovanjason",
+						agenda_slug: "lauredo",
 						full_name: name,
 						email: email,
 						address: address,
@@ -19,11 +19,18 @@ const getState = ({ getStore, setStore }) => {
 					})
 				})
 					.then(res => res.json())
+
+					.then(
+						data => console.log(data)
+						// {if (data.meta.code === 400) alert(data.msg);}
+					)
+
 					.then(() => {
-						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/moldovanjason")
+						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/lauredo")
 							.then(red => red.json())
 							.then(data => setStore({ allContacts: data }));
 					});
+
 				// build fetch w/ post method body contents - look up in api
 				// in 2nd .then do another fetch to get current contects of database(api)
 				// save data to allContacts
@@ -31,20 +38,31 @@ const getState = ({ getStore, setStore }) => {
 
 			deleteContacts: indexDel => {
 				const store = getStore();
-				const newArr = store.allContacts.filter((value, index) => index !== indexDel);
-				setStore({ allContacts: newArr });
-				// build fetch w/ delete method
-				// same as line 13
-			},
 
-			editContact: (name, address, number, email, indexDel) => {
 				fetch(`https://assets.breatheco.de/apis/fake/contact/${indexDel}`, {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})
+					.then(res => res.json())
+					.then(() => {
+						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/lauredo")
+							.then(red => red.json())
+							.then(data => setStore({ allContacts: data }));
+					});
+			},
+			// build fetch w/ delete method
+			// same as line 13
+
+			editContact: (name, address, number, email, id) => {
+				fetch(`https://assets.breatheco.de/apis/fake/contact/${id}`, {
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json"
 					},
 					body: JSON.stringify({
-						agenda_slug: "moldovanjason",
+						agenda_slug: "lauredo",
 						full_name: name,
 						email: email,
 						address: address,
@@ -53,7 +71,7 @@ const getState = ({ getStore, setStore }) => {
 				})
 					.then(res => res.json())
 					.then(() => {
-						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/moldovanjason")
+						fetch("https://assets.breatheco.de/apis/fake/contact/agenda/lauredo")
 							.then(red => red.json())
 							.then(data => setStore({ allContacts: data }));
 					});
